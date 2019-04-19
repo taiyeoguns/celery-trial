@@ -68,3 +68,11 @@ Get result after completion
 ```py
 res.get()
 ```
+
+## Tests
+
+Run:
+
+```sh
+pytest -v
+```
