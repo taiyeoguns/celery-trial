@@ -23,7 +23,7 @@ services:
       - rabbitmq_service
       - redis_service
     environment:
-      - RABBITMQ='amqp://guest:guest@rabbitmq_container:5672/'
+      - BROKER_URL='amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq_container:5672/'
     stdin_open: true
     tty: true
   redis_service:
