@@ -23,7 +23,8 @@ services:
       - rabbitmq_service
       - redis_service
     environment:
-      - BROKER_URL='amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq_container:5672/'
+      - BROKER_URL='amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq_container:5672//'
+      - RESULT_BACKEND=redis://redis_container:6379/0
     stdin_open: true
     tty: true
   redis_service:
