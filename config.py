@@ -1,4 +1,7 @@
+from pathlib import Path
 from decouple import config
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # configuration parameters - http://docs.celeryproject.org/en/latest/userguide/configuration.html
 

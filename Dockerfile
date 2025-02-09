@@ -21,8 +21,3 @@ USER appusr
 
 # Copy rest of application files to app folder
 COPY . ${APP_DIR}
-
-EXPOSE 8000
-
-# Run the start script
-CMD ["sh", "start.sh"]
