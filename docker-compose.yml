@@ -1,0 +1,55 @@
+x-common_service: &common_service
+  env_file:
+    - .env
+  restart: always
+  build:
+    context: ./
+    dockerfile: Dockerfile
+  volumes:
+    - ./:/usr/src/app
+    - ./pdfs:/usr/src/app/pdfs
+  depends_on:
+    rabbitmq_service:
+      condition: service_healthy
+    redis_service:
+      condition: service_started
+  environment:
+    - BROKER_URL=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq_container:5672//
+    - RESULT_BACKEND=redis://redis_container:6379/0
+
+services:
+  rabbitmq_service:
+    container_name: rabbitmq_container
+    env_file:
+      - .env
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  fastapi_service:
+    container_name: fastapi_container
+    <<: *common_service
+    ports:
+      - "8000:8000"
+    command: sh start.sh
+    stdin_open: true
+    tty: true
+
+  celery_worker_service:
+    container_name: celery_worker_container
+    <<: *common_service
+    command: celery -A worker.tasks worker -l info
+
+  redis_service:
+    container_name: redis_container
+    image: redis:7-bookworm
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"

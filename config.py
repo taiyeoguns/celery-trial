@@ -1,9 +1,10 @@
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from pathlib import Path
+from decouple import config
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # configuration parameters - http://docs.celeryproject.org/en/latest/userguide/configuration.html
 
-broker_url = os.getenv('BROKER_URL') or 'amqp://guest:guest@localhost:5672//'
+broker_url = config("BROKER_URL", "amqp://guest:guest@localhost:5672//")
 
-result_backend = os.getenv('RESULT_BACKEND') or 'db+sqlite:///results.db'
+result_backend = config("RESULT_BACKEND", "db+sqlite:///results.db")
