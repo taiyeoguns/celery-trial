@@ -4,9 +4,10 @@ Simple setup of [Celery](http://www.celeryproject.org/) task queue to execute lo
 
 ## Requirements
 
--   Python 3.6
+-   Python 3.12
 -   [Celery](http://www.celeryproject.org/)
 -   [RabbitMQ](https://www.rabbitmq.com/)
+-   [Redis](https://www.redis.io)
 
 ## Installation
 
@@ -21,7 +22,7 @@ git clone https://github.com/taiyeoguns/celery-trial.git
 With a [virtualenv](https://virtualenv.pypa.io/) already set-up, install the requirements with pip:
 
 ```sh
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 ### Add details in `.env` file
@@ -74,5 +75,17 @@ res.get()
 Run:
 
 ```sh
-pytest -v
+pytest -vv
 ```
+
+### Run application with Docker
+
+With Docker and Docker Compose set up, run:
+
+```sh
+docker-compose up --build
+```
+
+Wait till setup is complete and all containers are started.
+
+Thereafter, application to show PDF generation handled in queue should be available at `http://localhost:8000`
