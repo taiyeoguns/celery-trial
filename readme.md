@@ -19,7 +19,7 @@ git clone https://github.com/taiyeoguns/celery-trial.git
 
 ### Install Requirements
 
-With a [virtualenv](https://virtualenv.pypa.io/) already set-up, install the requirements with pip:
+With a [virtualenv](https://virtualenv.pypa.io/) already set up, install the requirements with pip:
 
 ```sh
 pip install -r requirements-dev.txt
